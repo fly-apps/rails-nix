@@ -1,24 +1,9 @@
-# README
+# Rails and Nix
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repo should have everything we need to work with a reasonably complex Rails app within the Nix environment.
 
-Things you may want to cover:
+Requirements:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Gems should be cacheable for reuse during builds
+- Assets should be cacheable for the same reason, even if this requires pulling in cached assets from another path, or using Buildkit --mount=type=cache
+- A Docker image should be generated from the Nix expression from inside a Docker container that mounts a volume for the Nix store. Are any other paths required?
