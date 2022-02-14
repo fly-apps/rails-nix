@@ -120,6 +120,17 @@
     };
     version = "7.0.2.2";
   };
+  addressable = {
+    dependencies = ["public_suffix"];
+    groups = ["default" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "022r3m9wdxljpbya69y2i3h9g3dhhfaqzidf95m6qjzms792jvgp";
+      type = "gem";
+    };
+    version = "2.8.0";
+  };
   bindex = {
     groups = ["default" "development"];
     platforms = [];
@@ -150,6 +161,27 @@
       type = "gem";
     };
     version = "3.2.4";
+  };
+  capybara = {
+    dependencies = ["addressable" "matrix" "mini_mime" "nokogiri" "rack" "rack-test" "regexp_parser" "xpath"];
+    groups = ["test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1dv75hs45456mi76h720gxk959gpg4f6091hmk42y0ln6kp2x7i0";
+      type = "gem";
+    };
+    version = "3.36.0";
+  };
+  childprocess = {
+    groups = ["default" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1lvcp8bsd35g57f7wz4jigcw2sryzzwrpcgjwwf3chmjrjcww5in";
+      type = "gem";
+    };
+    version = "4.1.0";
   };
   concurrent-ruby = {
     groups = ["default" "development"];
@@ -333,6 +365,16 @@
     };
     version = "1.0.2";
   };
+  matrix = {
+    groups = ["default" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1h2cgkpzkh3dd0flnnwfq6f3nl2b1zff9lvqz8xs853ssv5kq23i";
+      type = "gem";
+    };
+    version = "0.4.2";
+  };
   method_source = {
     groups = ["default" "development"];
     platforms = [];
@@ -344,7 +386,7 @@
     version = "1.0.0";
   };
   mini_mime = {
-    groups = ["default"];
+    groups = ["default" "test"];
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
@@ -352,6 +394,16 @@
       type = "gem";
     };
     version = "1.1.2";
+  };
+  mini_portile2 = {
+    groups = ["default" "development" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0d3ga166pahsxavzwj19yjj4lr13rw1vsb36s2qs8blcxigrdp6z";
+      type = "gem";
+    };
+    version = "2.7.1";
   };
   minitest = {
     groups = ["default" "development"];
@@ -428,12 +480,12 @@
     version = "2.5.8";
   };
   nokogiri = {
-    dependencies = ["racc"];
-    groups = ["default" "development"];
+    dependencies = ["mini_portile2" "racc"];
+    groups = ["default" "development" "test"];
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
-      sha256 = "1w0lvlvxzd5ii6sci7ssd4qdkk24pc0f0026r143gkbaa2bk3mrr";
+      sha256 = "1zqzawia52cdcmi55lp7v8jmiqyw7pcpwsksqlnirwfm3f7bnf11";
       type = "gem";
     };
     version = "1.13.1";
@@ -448,6 +500,16 @@
     };
     version = "1.3.1";
   };
+  public_suffix = {
+    groups = ["default" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1xqcgkl7bwws1qrlnmxgh8g4g9m10vg60bhlw40fplninb3ng6d9";
+      type = "gem";
+    };
+    version = "4.0.6";
+  };
   puma = {
     dependencies = ["nio4r"];
     groups = ["default"];
@@ -460,7 +522,7 @@
     version = "5.6.2";
   };
   racc = {
-    groups = ["default" "development"];
+    groups = ["default" "development" "test"];
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
@@ -470,7 +532,7 @@
     version = "1.6.0";
   };
   rack = {
-    groups = ["default" "development"];
+    groups = ["default" "development" "test"];
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
@@ -481,7 +543,7 @@
   };
   rack-test = {
     dependencies = ["rack"];
-    groups = ["default" "development"];
+    groups = ["default" "development" "test"];
     platforms = [];
     source = {
       remotes = ["https://rubygems.org"];
@@ -554,6 +616,16 @@
     };
     version = "4.6.0";
   };
+  regexp_parser = {
+    groups = ["default" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "155f6cr4rrfw5bs5xd3m5kfw32qhc5fsi4nk82rhif56rc6cs0wm";
+      type = "gem";
+    };
+    version = "2.2.1";
+  };
   reline = {
     dependencies = ["io-console"];
     groups = ["default" "development" "test"];
@@ -572,6 +644,37 @@
       type = "gem";
     };
     version = "0.3.1";
+  };
+  rexml = {
+    groups = ["default" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "08ximcyfjy94pm1rhcx04ny1vx2sk0x4y185gzn86yfsbzwkng53";
+      type = "gem";
+    };
+    version = "3.2.5";
+  };
+  rubyzip = {
+    groups = ["default" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0grps9197qyxakbpw02pda59v45lfgbgiyw48i0mq9f2bn9y6mrz";
+      type = "gem";
+    };
+    version = "2.3.2";
+  };
+  selenium-webdriver = {
+    dependencies = ["childprocess" "rexml" "rubyzip"];
+    groups = ["test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "17hilxa40cj7q48k6wcx1cbdb1v3q9c4nx89fji7gyqpcfm16vq7";
+      type = "gem";
+    };
+    version = "4.1.0";
   };
   sprockets = {
     dependencies = ["concurrent-ruby" "rack"];
@@ -679,6 +782,17 @@
     };
     version = "4.2.0";
   };
+  webdrivers = {
+    dependencies = ["nokogiri" "rubyzip" "selenium-webdriver"];
+    groups = ["test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0bxahwcw21rd5hnnlyvpz42ipjkx7yp5a8m08k9q0pspv5zmg4mj";
+      type = "gem";
+    };
+    version = "5.0.0";
+  };
   websocket-driver = {
     dependencies = ["websocket-extensions"];
     groups = ["default"];
@@ -699,6 +813,17 @@
       type = "gem";
     };
     version = "0.1.5";
+  };
+  xpath = {
+    dependencies = ["nokogiri"];
+    groups = ["default" "test"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0bh8lk9hvlpn7vmi6h4hkcwjzvs2y0cmkk3yjjdr8fxvj6fsgzbd";
+      type = "gem";
+    };
+    version = "3.2.0";
   };
   zeitwerk = {
     groups = ["default" "development"];
