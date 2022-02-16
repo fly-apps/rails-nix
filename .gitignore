@@ -35,3 +35,7 @@
 /config/master.key
 
 vendor/bundle
+
+# Nix default result paths
+result
+result-*
