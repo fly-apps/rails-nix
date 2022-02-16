@@ -7,7 +7,10 @@ kill_timeout = 5
 processes = []
 
 [build]
+  # Use builder for a buildpack deployment
   builder = "heroku/buildpacks:20"
+  # Use image for Nix deplyoment
+  # image = "myimage"
 
 [deploy]
   release_command = "bundle exec rails db:migrate"
