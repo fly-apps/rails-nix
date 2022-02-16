@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @balloon %>
+
+<div>
+  <%= link_to "Edit this balloon", edit_balloon_path(@balloon) %> |
+  <%= link_to "Back to balloons", balloons_path %>
+
+  <%= button_to "Destroy this balloon", @balloon, method: :delete %>
+</div>

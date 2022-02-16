@@ -1,0 +1,2 @@
+class Balloon < ApplicationRecord
+end

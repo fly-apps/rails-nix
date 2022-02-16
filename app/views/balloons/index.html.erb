@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Balloons</h1>
+
+<div id="balloons">
+  <% @balloons.each do |balloon| %>
+    <%= render balloon %>
+    <p>
+      <%= link_to "Show this balloon", balloon %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New balloon", new_balloon_path %>
