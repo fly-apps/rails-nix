@@ -1,0 +1,3 @@
+#!/bin/sh
+
+docker run -it --rm -v ~/.fly:/root/.fly -v $PWD:/app -e FLY_ACCESS_TOKEN=$(fly auth token) --workdir /app -v nix:/nix nixos/nix

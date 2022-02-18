@@ -7,15 +7,14 @@ kill_timeout = 5
 processes = []
 
 [build]
-  # Use builder for a buildpack deployment
-  builder = "heroku/buildpacks:20"
-  # Use image for Nix deplyoment
-  # image = "myimage"
+  image = "flyio/fly-rails-nix:latest"
 
 [deploy]
   release_command = "bundle exec rails db:migrate"
 
 [env]
+  RAILS_LOG_TO_STDOUT = "yes"
+  RAILS_ENV = "production"
   PORT = "8080"
 
 [experimental]
@@ -49,5 +48,5 @@ processes = []
     timeout = "2s"
 
 [[statics]]
-  guest_path = "/app/public"
+  guest_path = "/public"
   url_prefix = "/"
