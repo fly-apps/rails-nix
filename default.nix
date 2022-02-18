@@ -3,6 +3,22 @@
 , runtimeDirectory ? null
 }:
 
+let pkgs' = pkgs; in # break reference cycle
+let
+
+  pkgs = pkgs'.appendOverlays [(final: super: {
+    defaultGemConfig = super.defaultGemConfig // {
+      pg = attrs: (super.defaultGemConfig.pg attrs) // {
+        # Strip files that keep `final.postgresql` refs in the closure.
+        postInstall = ''
+          find $out/lib/ruby/gems/ -name 'pg-*.info' -delete
+        '';
+      };
+    };
+  })];
+
+in
+
 let
   #
   # `callPackage` is the mechanism used for dependency injection within Nixpkgs.
