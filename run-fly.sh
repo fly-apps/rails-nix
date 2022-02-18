@@ -12,6 +12,7 @@ skopeo \
     copy docker-archive:"$(nix-build . -A dockerImage)" \
     docker://registry.fly.io/$PROJECT_NAME:latest \
     --dest-creds x:"$(flyctl auth token)" \
+    --insecure-policy \
     --format v2s2
 
 flyctl deploy -i registry.fly.io/$PROJECT_NAME:latest --remote-only
