@@ -6,6 +6,9 @@ set -e
 PS4=" $ "
 set -x
 
+# Set the location of the script to the current directory
+cd "$(dirname "$0")"
+
 PROJECT_NAME="$(tomlq --raw-output .app fly.toml)"
 
 skopeo \
