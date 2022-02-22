@@ -42,7 +42,16 @@ let
       gems = bundlerEnv {
         name = "rails-nix-gems";
         inherit ruby;
-        gemdir = builtins.fetchGit ./.;
+        gemdir =
+          builtins.filterSource (
+            path: type:
+            let
+              fileName = baseNameOf path;
+            in
+            fileName == "Gemfile" || fileName == "Gemfile.lock" || fileName == "gemset.nix"
+          )
+          ./.
+        ;
       };
     in
     stdenv.mkDerivation {
