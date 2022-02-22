@@ -86,6 +86,8 @@ let
       '';
 
       passthru = {
+        inherit ruby;
+        inherit gems;
         inherit (gems) wrappedRuby;
       };
     }
