@@ -20,6 +20,9 @@ let
 in
 
 let
+  # This could be part of the Fly overlay instead.
+  flyImageTools = pkgs.callPackage ./image-tools.nix { };
+
   #
   # `callPackage` is the mechanism used for dependency injection within Nixpkgs.
   # It takes two parameters:
@@ -86,6 +89,8 @@ let
       '';
 
       passthru = {
+        inherit ruby;
+        inherit gems;
         inherit (gems) wrappedRuby;
       };
     }
@@ -101,43 +106,36 @@ let
   };
 
   dockerImage = pkgs.callPackage (
-
     { lib
-    , dockerTools
+    , flyImageTools
     , cacert
     , busybox
-    #, bash
-    #, coreutils
+    , app
     }:
-    dockerTools.buildLayeredImage {
-      name = "${app.name}-container";
-      contents = [
-        # Those are only needed for interactive use (e.g. `docker exec -it ... sh`)
-        # bash
-        # coreutils
-        # or
-        busybox
 
-        # Makes SSL stuff happy
-        cacert
-
-        # Makes the app's binstubs directly available in PATH
-        # Transitively also makes it present at the root of the image.
-        app
+    flyImageTools.buildSpecifiedLayers {
+      layeredContent = [
+        { contents = [ busybox cacert ]; }
+        { contents = [ app.ruby ]; }
+        { contents = [ app.wrappedRuby ]; }
+        {
+          contents = [ app ];
+          config = {
+            # Directly reference the store path means this command works even if the
+            # application isn't added to the contents.
+            Cmd = [ "${app}/bin/rails" "server" ];
+            # This would work too since we're importing `app` as a layer content.
+            # Cmd = [ "rails" "server" ];
+          };
+          extraCommands = lib.optionalString (runtimeDirectory != null) ''
+            mkdir -p ./${runtimeDirectory}/tmp
+          '';
+        }
       ];
-      config = {
-        # Directly reference the store path means this command works even if the
-        # application isn't added to the contents.
-        Cmd = [ "${app}/bin/rails" "server" ];
-        # This would work too since we're importing `app` as a layer content.
-        # Cmd = [ "rails" "server" ];
-      };
-      extraCommands = lib.optionalString (runtimeDirectory != null) ''
-        mkdir -p ./${runtimeDirectory}/tmp
-      '';
     }
-
-  ) {};
+  ) {
+    inherit app flyImageTools;
+  };
 in
   {
     inherit
