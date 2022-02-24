@@ -33,26 +33,58 @@ let
   app = pkgs.callPackage (
 
     { stdenv
+    , runCommandNoCC
     , lib
     , ruby
     , bundlerEnv
+    # Groups installed in the bundler environment.
+    , groups ? [ "default" ]
     }:
 
     let
+      # Using `fetchGit` helps reduce pollution.
+      # This is because instead of copying the whole directory, it copies the
+      # checked-out revision + any files tracked or staged.
+      src = builtins.fetchGit ./.;
+
+      # All unique groups referenced in `gemset.nix`; should map to all groups
+      # actually present in the Gemfile.
+      allGroups = lib.unique (builtins.concatLists (
+        lib.mapAttrsToList
+        (k: v: v.groups)
+        (import (src + "/gemset.nix"))
+      ));
+
+      # [ "default" "development" "test" ] - [ "default ] ⇒ [ "development" "test" ]
+      selectedGroups = lib.subtractLists groups allGroups;
+
+      gemfile =
+        if groups == null
+        then src + "/Gemfile"
+        else (runCommandNoCC "patched-gemfile" {} ''
+          cat ${src}/Gemfile > $out
+          cat >> $out <<EOF
+
+          # Mark unwanted groups as "optional" such that we don't need to rely
+          # on "BUNDLE_WITHOUT" listing all these groups in an additional layer
+          # of wrappers to make bundler happy with missing gems.
+          ${lib.concatMapStringsSep "\n" (
+            name: "group :${name}, optional: true do end"
+          ) selectedGroups}
+          EOF
+        '')
+      ;
       gems = bundlerEnv {
         name = "rails-nix-gems";
-        inherit ruby;
-        gemdir = builtins.fetchGit ./.;
+        inherit ruby groups gemfile;
+        gemdir = src;
       };
     in
     stdenv.mkDerivation {
       pname = "rails-nix";
       version = "0.0.0";
 
-      # Using `fetchGit` helps reduce pollution.
-      # This is because instead of copying the whole directory, it copies the
-      # checked-out revision + any files tracked or staged.
-      src = builtins.fetchGit ./.;
+      inherit src;
 
       buildInputs = [
         gems
