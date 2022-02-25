@@ -698,16 +698,6 @@
     };
     version = "3.4.2";
   };
-  sqlite3 = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "0lja01cp9xd5m6vmx99zwn4r7s97r1w5cb76gqd8xhbm1wxyzf78";
-      type = "gem";
-    };
-    version = "1.4.2";
-  };
   stimulus-rails = {
     dependencies = ["railties"];
     groups = ["default"];
