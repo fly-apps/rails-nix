@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -I ./nixpkgs.nix -p flyctl skopeo yq git -i bash
+#!nix-shell -I ./nixpkgs.nix -p flyctl skopeo dive yq git -i bash
 
 set -u
 set -e
@@ -23,3 +23,4 @@ skopeo \
     --insecure-policy \
     --format v2s2
 echo "Done."
+# CI=true dive docker-archive://$ARCHIVE_PATH
