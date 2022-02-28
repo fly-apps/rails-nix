@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -I ./nixpkgs.nix -p flyctl skopeo dive yq git -i bash
+#!nix-shell -I ./nixpkgs.nix -p flyctl skopeo dive yq jq git -i bash
 
 set -u
 set -e
@@ -23,4 +23,7 @@ skopeo \
     --insecure-policy \
     --format v2s2
 echo "Done."
-# CI=true dive docker-archive://$ARCHIVE_PATH
+
+SIZE=$(skopeo inspect --raw docker-archive:///nix/store/p4ghpih4sv29wqb9aa1axxkr928w5mlf-layer.tar.gz |  jq -r '[ .layers[].size ] | add')
+((SIZE_IN_MB=$SIZE/1024/1024))
+echo "Image size: ${SIZE_IN_MB}MB"
