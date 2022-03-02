@@ -242,6 +242,26 @@
     };
     version = "1.10.0";
   };
+  execjs = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "121h6af4i6wr3wxvv84y53jcyw2sk71j5wsncm6wq6yqrwcrk4vd";
+      type = "gem";
+    };
+    version = "2.8.1";
+  };
+  ffi = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1862ydmclzy1a0cjbvm8dz7847d9rch495ib0zb64y84d3xd4bkg";
+      type = "gem";
+    };
+    version = "1.15.5";
+  };
   globalid = {
     dependencies = ["activesupport"];
     groups = ["default"];
@@ -252,6 +272,38 @@
       type = "gem";
     };
     version = "1.0.0";
+  };
+  google-protobuf = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1q0aknwpr8k1v92qcm1rz1zyrgdpf1i1b9mxa1gi48y0aawlnb7j";
+      type = "gem";
+    };
+    version = "3.19.4";
+  };
+  googleapis-common-protos-types = {
+    dependencies = ["google-protobuf"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0w860lqs5j6n58a8qn4wr16hp0qz7cq5h67dgma04gncjwqiyhf5";
+      type = "gem";
+    };
+    version = "1.3.0";
+  };
+  grpc = {
+    dependencies = ["google-protobuf" "googleapis-common-protos-types"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "11ywqk0pdasw0pjskcip5s6xg2gh2ngi7qn6i4ka8bxdw0d0ig0a";
+      type = "gem";
+    };
+    version = "1.43.1";
   };
   i18n = {
     dependencies = ["concurrent-ruby"];
@@ -490,6 +542,16 @@
     };
     version = "1.13.1";
   };
+  optimist = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1vg2chy1cfmdj6c1gryl8zvjhhmb3plwgyh1jfnpq4fnfqv7asrk";
+      type = "gem";
+    };
+    version = "3.0.1";
+  };
   pg = {
     groups = ["default"];
     platforms = [];
@@ -605,6 +667,17 @@
       type = "gem";
     };
     version = "13.0.6";
+  };
+  rbtrace = {
+    dependencies = ["ffi" "msgpack" "optimist"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "0s8prj0klfgpmpfcpdzbf149qrrsdxgnb6w6kkqc9gyars4vyaqn";
+      type = "gem";
+    };
+    version = "0.4.14";
   };
   redis = {
     groups = ["default"];
