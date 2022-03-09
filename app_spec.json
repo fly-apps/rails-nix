@@ -1,0 +1,19 @@
+{
+  "runtimes": [{
+    "name": "ruby",
+    "version": "3.1.1",
+    "jemalloc": true,
+    "bundler": {
+      "version": "2.3.6"
+    }
+  }],
+  "services": [{
+    "name": "web",
+    "command": "puma -c config/puma.rb",
+    "env": {
+      "RAILS_LOG_TO_STDOUT": true,
+      "RAILS_SERVE_STATIC_FILES": true
+    }
+  }]
+}
+
