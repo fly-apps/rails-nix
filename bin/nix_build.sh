@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -I ./nixpkgs.nix -p flyctl skopeo dive yq jq git -i bash
+#!nix-shell -I ./default.nix -p flyctl skopeo dive yq jq git -i bash
 
 set -u
 set -e
@@ -13,7 +13,7 @@ DOCKER_TAG=$2
 PROJECT_NAME="$(tomlq --raw-output .app fly.toml)"
 
 echo "Building ${PROJECT_NAME}..."
-ARCHIVE_PATH=$(nix-build . -A dockerImage)
+ARCHIVE_PATH=$(nix-build . -A eval.config.outputs.container.image)
 
 echo "Pushing image to $DOCKER_TAG..."
 skopeo \

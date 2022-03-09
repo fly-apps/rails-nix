@@ -5,7 +5,7 @@ set -u
 PS4=" $ "
 set -x
 
-image="$(nix-build -A eval.config.outputs.containerImage)"
+image="$(nix-build -A eval.config.outputs.container.image)"
 image_id="$(docker load --quiet < "$image" | sed -e 's/^[^:]\+:\s*//')"
 
 exec docker \
