@@ -75,6 +75,6 @@ gem "pg", "~> 1.3"
 
 # Gems added for solving install problems discovered in other projects
 
-gem "execjs"
-gem "rbtrace"
-gem "grpc"
+#gem "execjs"
+#gem "rbtrace"
+#gem "grpc"
