@@ -1,5 +1,5 @@
 .git
-tmp
+tmp/cache
 log
 public/assets
 .bundle

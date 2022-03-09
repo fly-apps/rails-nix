@@ -1,13 +1,10 @@
 # fly.toml file generated for fly-rails-nix on 2022-02-16T21:46:19+01:00
 
-app = "fly-rails-nix"
+app = "rails-nix"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
-
-[build]
-  image = "flyio/fly-rails-nix:latest"
 
 [deploy]
   release_command = "bundle exec rails db:migrate"
