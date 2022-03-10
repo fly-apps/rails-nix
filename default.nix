@@ -27,5 +27,8 @@
         ];
       }
     ];
+
+    # May not be desirable depending.
+    #container.includeBaseLayer = false;
   };
 }
