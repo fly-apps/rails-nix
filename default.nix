@@ -4,5 +4,6 @@
   config = {
     templates.rails.enable = true;
     app.source = builtins.fetchGit ./.;
+    runtimes.ruby.version = "3.1.1";
   };
 }
