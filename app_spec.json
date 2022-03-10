@@ -7,13 +7,22 @@
       "version": "2.3.6"
     }
   }],
-  "services": [{
-    "name": "web",
-    "command": "puma -c config/puma.rb",
-    "env": {
-      "RAILS_LOG_TO_STDOUT": true,
-      "RAILS_SERVE_STATIC_FILES": true
+  "services": [
+    {
+      "name": "web",
+      "command": "puma -c config/puma.rb",
+      "env": {
+        "RAILS_LOG_TO_STDOUT": true,
+        "RAILS_SERVE_STATIC_FILES": true
+      }
+    },
+    {
+      "name": "sidekiq",
+      "command": "sidekiq",
+      "env": {
+        "RAILS_LOG_TO_STDOUT": true,
+        "RAILS_SERVE_STATIC_FILES": true
+      }
     }
-  }]
+  ]
 }
-
