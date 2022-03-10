@@ -24,6 +24,6 @@ skopeo \
     --format v2s2
 echo "Done."
 
-SIZE=$(skopeo inspect --raw docker-archive:///nix/store/p4ghpih4sv29wqb9aa1axxkr928w5mlf-layer.tar.gz |  jq -r '[ .layers[].size ] | add')
+SIZE=$(skopeo inspect --raw docker-archive://${ARCHIVE_PATH} |  jq -r '[ .layers[].size ] | add')
 ((SIZE_IN_MB=$SIZE/1024/1024))
 echo "Image size: ${SIZE_IN_MB}MB"
