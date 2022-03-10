@@ -242,16 +242,6 @@
     };
     version = "1.10.0";
   };
-  execjs = {
-    groups = ["default"];
-    platforms = [];
-    source = {
-      remotes = ["https://rubygems.org"];
-      sha256 = "121h6af4i6wr3wxvv84y53jcyw2sk71j5wsncm6wq6yqrwcrk4vd";
-      type = "gem";
-    };
-    version = "2.8.1";
-  };
   ffi = {
     groups = ["default"];
     platforms = [];
