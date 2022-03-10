@@ -8,8 +8,8 @@
 
 let
   # Tracking https://github.com/fly-apps/nix-base/pull/3
-  rev = "3c090bb078f811b009cf451e75c42ed226a4cfd8";
-  sha256 = "sha256:1r9vkjhn225xpyjpfn2zba3j9j4xmshwh9ac13ycdbf3yyzbrr3r";
+  rev = "06c67e6c54e8942d678a2e8abcdc4f5c1846e371";
+  sha256 = "sha256:0d68kmcmn95nhfp18vnp0k6v48lmi5g7kgymwsz0bv5csg0mp1np";
   tarball = builtins.fetchTarball {
     url = "https://github.com/fly-apps/nix-base/archive/${rev}.tar.gz";
     inherit sha256;
