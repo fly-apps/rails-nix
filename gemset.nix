@@ -306,6 +306,17 @@
     };
     version = "1.9.1";
   };
+  image_processing = {
+    dependencies = ["mini_magick" "ruby-vips"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1f32dzj77p9mfp4q95930vfkp80psf88phjc46jhf9ncl72ykffk";
+      type = "gem";
+    };
+    version = "1.12.2";
+  };
   importmap-rails = {
     dependencies = ["actionpack" "railties"];
     groups = ["default"];
@@ -426,6 +437,16 @@
       type = "gem";
     };
     version = "1.0.0";
+  };
+  mini_magick = {
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "1aj604x11d9pksbljh0l38f70b558rhdgji1s9i763hiagvvx2hs";
+      type = "gem";
+    };
+    version = "4.11.0";
   };
   mini_mime = {
     groups = ["default" "test"];
@@ -717,6 +738,17 @@
       type = "gem";
     };
     version = "3.2.5";
+  };
+  ruby-vips = {
+    dependencies = ["ffi"];
+    groups = ["default"];
+    platforms = [];
+    source = {
+      remotes = ["https://rubygems.org"];
+      sha256 = "19pzpx406rr9s3qk527rn9y3b76sjq5pi7y0xzqiy50q3k0hhg7g";
+      type = "gem";
+    };
+    version = "2.1.4";
   };
   rubyzip = {
     groups = ["default" "test"];
