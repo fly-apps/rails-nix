@@ -1,18 +1,22 @@
-# fly.toml file generated for fly-rails-nix on 2022-02-16T21:46:19+01:00
-
 app = "rails-nix"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
+[build]
+
+  [build.args]
+    BUNDLER_VERSION = "2.3.6"
+    NODE_VERSION = "14"
+    RUBY_VERSION = "3.1.1"
+
 [deploy]
   release_command = "bundle exec rails db:migrate"
 
 [env]
-  RAILS_LOG_TO_STDOUT = "yes"
-  RAILS_ENV = "production"
   PORT = "8080"
+  SERVER_COMMAND = "bundle exec puma -C config/puma.rb"
 
 [experimental]
   allowed_public_ports = []
@@ -31,6 +35,7 @@ processes = []
     type = "connections"
 
   [[services.ports]]
+    force_https = true
     handlers = ["http"]
     port = 80
 
@@ -45,5 +50,5 @@ processes = []
     timeout = "2s"
 
 [[statics]]
-  guest_path = "/public"
+  guest_path = "/app/public"
   url_prefix = "/"
