@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -I ./default.nix -p flyctl skopeo dive yq jq git -i bash
+#!nix-shell -I .nix/default.nix -p flyctl skopeo dive yq jq git -i bash
 
 set -u
 set -e

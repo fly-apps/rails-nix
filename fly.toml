@@ -15,10 +15,12 @@ app = "rails-nix"
   SERVER_COMMAND = "bundle exec puma -C config/puma.rb"
 
 [requirements]
-  additional_packages = ["ffmpeg"]
+  ruby_version = "3.1.1"
   nix_base_revision = "b05cd6ea80153b15c710496eca5b8b3d680b0de1"
   nix_base_sha256 = "sha256:1is3p554dn8w4006i22nhxs30y93i11kylj1izibjzdmdi1xgi7j"
-  ruby_version = "3.1.1"
+  include_tools = true
+  # This needs to be moved into nix-base
+  # additional_packages = ["ffmpeg"]
 
 [[services]]
   http_checks = []

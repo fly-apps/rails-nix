@@ -1,0 +1,28 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -I .nix/default.nix -p flyctl skopeo dive yq jq git -i bash
+
+set -e
+PS4=" $ "
+
+cd "$(dirname "$0")/.."
+
+PROJECT_NAME="$(tomlq --raw-output .app fly.toml)"
+
+echo "Building ${PROJECT_NAME}..."
+
+COMMAND="nix-build .nix -A eval.config.outputs.container.image"
+
+if [ -n "$NIX_BASE_DEV" ]; then
+    COMMAND="${COMMAND} --arg nix-base '(import ../../internal/nix-base {})'"
+fi
+
+echo $COMMAND
+export ARCHIVE_PATH=$($COMMAND)
+
+export TAG=$(date +%s)
+export FLY_API_TOKEN=$(flyctl auth token)
+
+echo "Image tarball: $ARCHIVE_PATH"
+
+$(dirname "$0")/nix-push $ARCHIVE_PATH
+

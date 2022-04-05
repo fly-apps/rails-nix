@@ -1,0 +1,11 @@
+#!/bin/bash -l
+
+cd "$(dirname "$0")/.."
+
+if [ "$(uname -p)" == "arm" ]; then
+  echo "Detected ARM architecture. Running linux-amd64 build in Docker..."
+  docker run --privileged --platform linux/amd64 -v nixdir:/nix -v $PWD:/app --workdir=/app --rm nixos/nix /app/.nix/nix-build-image
+else
+  echo "Running pure Nix build..."
+  exec .nix/nix-build-image
+fi

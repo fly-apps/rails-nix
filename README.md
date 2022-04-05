@@ -1,9 +1,10 @@
 This is a sample Rails app for testing [a Nix-based development and deployment system](https://github.com/fly-apps/nix-base). It inherits most behavior from Fly's [Nix modules](https://github.com/fly-apps/nix-base). The following files are interesting for understanding how the module system works.
 
-* [default.nix](default.nix): Entry point for Nix commands. All module configuration goes here, such as customizing the Ruby version.
-* [shell.nix](shell.nix): Entry point for `nix-shell`. For example, it will ensure all gem groups are loaded.
-* [fly-base.nix](fly-base.nix): Importer shim for loading modules. Needs to be updated when `nix-base` updates. A helper script in `bin/update-nix` will dump the correct rev/sha256 values for the HEAD of `nix-base/main`.
-* [bin/nix-build.sh](bin/nix_build.sh): Script called by `fly deploy --nix` that runs the image build and pushes the result to the Fly repository.
+* [default.nix](.nix/default.nix): Entry point for Nix commands. All module configuration is passed through here. This can eventually be moved to `nix-base`.
+* [shell.nix](.nix/shell.nix): Entry point for `nix-shell`. It ensures all gem groups are included in the bundle environment.
+* [nix-base.nix](.nix/nix-base.nix): Importer shim for loading Nix modules that fetches the `nix-base` git commit from `fly.toml`. A helper script in `.nix/update-nix-base` will update values in `fly.toml` HEAD of `nix-base/main`.
+* [nix-build-image](.nix/nix-build-image): Script that will build an image and push it to the Fly repository.
+
 ## Building a Docker image
 
 If you just want to build the Docker image and see the results, you can run the following on **Linux**. Building Docker images on Darwin is not well supported.
