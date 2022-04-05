@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nix-shell --run "bundle lock && bundix --gemset .fly/gemset.nix" .fly/shell.nix
