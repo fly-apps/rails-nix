@@ -7,9 +7,9 @@
 # Using this simple purely-Nix shim serves as a placeholder.
 
 let
-  # Tracking https://github.com/fly-apps/nix-base/pull/3
-  rev = "06c67e6c54e8942d678a2e8abcdc4f5c1846e371";
-  sha256 = "sha256:0d68kmcmn95nhfp18vnp0k6v48lmi5g7kgymwsz0bv5csg0mp1np";
+  # Use bin/update-nix.sh to get the latest values to place here
+  rev = "4fc4452d660313c2300341ef0e1e5f06f6337c41";
+  sha256 = "sha256:09dznnlz9v687dpirh84bpm02cs4irwrm836aqbv106m04rzrnwp";
   tarball = builtins.fetchTarball {
     url = "https://github.com/fly-apps/nix-base/archive/${rev}.tar.gz";
     inherit sha256;

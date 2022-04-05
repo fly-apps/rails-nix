@@ -1,0 +1,2 @@
+FROM nixos/nix
+
