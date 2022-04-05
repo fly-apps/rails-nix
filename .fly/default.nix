@@ -1,10 +1,13 @@
 { fly-base ? (import ./fly-base.nix {})
 }:
+let
+  toml = (builtins.fromTOML (builtins.readFile ../fly.toml));
+in
 (fly-base.fly.evalSpec) {
   config = { pkgs, ... }: {
     templates.rails.enable = true;
     app.source = builtins.fetchGit ../.;
-    runtimes.ruby.version = "3.1.1";
+    runtimes.ruby.version = toml.requirements.ruby_version;
     runtimes.ruby.withJemalloc = false;
 
     templates.rails.assetInputs = [
@@ -22,9 +25,7 @@
     # layer. This would provide more isolation from the implementation details.
     container.additionalLayers = [
       {
-        contents = with pkgs; [
-          ffmpeg
-        ];
+        contents = with pkgs; toml.requirements.additional_packages;
       }
     ];
 
