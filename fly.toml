@@ -1,12 +1,5 @@
 app = "rails-nix"
 
-kill_signal = "SIGINT"
-kill_timeout = 5
-processes = []
-
-[requirements]
-  ruby_version = "3.1.1"
-  additional_packages = ["ffmpeg"]
 [build]
 
   [build.args]
@@ -21,9 +14,11 @@ processes = []
   PORT = "8080"
   SERVER_COMMAND = "bundle exec puma -C config/puma.rb"
 
-[experimental]
-  allowed_public_ports = []
-  auto_rollback = true
+[requirements]
+  additional_packages = ["ffmpeg"]
+  nix_base_revision = "b05cd6ea80153b15c710496eca5b8b3d680b0de1"
+  nix_base_sha256 = "sha256:1is3p554dn8w4006i22nhxs30y93i11kylj1izibjzdmdi1xgi7j"
+  ruby_version = "3.1.1"
 
 [[services]]
   http_checks = []
