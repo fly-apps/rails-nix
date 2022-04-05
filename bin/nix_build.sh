@@ -1,29 +1,24 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -I ./default.nix -p flyctl skopeo dive yq jq git -i bash
+#!nix-shell -I .fly/default.nix -p flyctl skopeo dive yq jq git -i bash
 
-set -u
 set -e
 PS4=" $ "
 
 cd "$(dirname "$0")/.."
 
-FLY_AUTH_TOKEN=$1
-DOCKER_TAG=$2
-
 PROJECT_NAME="$(tomlq --raw-output .app fly.toml)"
 
 echo "Building ${PROJECT_NAME}..."
-ARCHIVE_PATH=$(nix-build . -A eval.config.outputs.container.image)
 
-echo "Pushing image to $DOCKER_TAG..."
-skopeo \
-    copy docker-archive:"$ARCHIVE_PATH" \
-    docker://$DOCKER_TAG \
-    --dest-creds x:$FLY_AUTH_TOKEN \
-    --insecure-policy \
-    --format v2s2
-echo "Done."
+COMMAND="nix-build .fly -A eval.config.outputs.container.image"
 
-SIZE=$(skopeo inspect --raw docker-archive://${ARCHIVE_PATH} |  jq -r '[ .layers[].size ] | add')
-((SIZE_IN_MB=$SIZE/1024/1024))
-echo "Image size: ${SIZE_IN_MB}MB"
+if [ -n "$NIX_BASE_DEV" ]; then
+    COMMAND="${COMMAND} --arg fly-base '(import ../../internal/nix-base {})'"
+fi
+
+echo $COMMAND
+ARCHIVE_PATH=$($COMMAND)
+
+if [ -n "$TAG" ]; then
+    $(dirname "$0")/nix_push.sh $ARCHIVE_PATH
+fi
