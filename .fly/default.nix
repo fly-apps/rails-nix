@@ -3,7 +3,7 @@
 (fly-base.fly.evalSpec) {
   config = { pkgs, ... }: {
     templates.rails.enable = true;
-    app.source = builtins.fetchGit ./.;
+    app.source = builtins.fetchGit ../.;
     runtimes.ruby.version = "3.1.1";
     runtimes.ruby.withJemalloc = false;
 
