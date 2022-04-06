@@ -1,7 +1,7 @@
 [build]
 
-  nix_base_revision = "b05cd6ea80153b15c710496eca5b8b3d680b0de1"
-  nix_base_sha256 = "sha256:1is3p554dn8w4006i22nhxs30y93i11kylj1izibjzdmdi1xgi7j"
+  nix_base_revision = "7a0548fb65780cb2ea32790dde67ca5ac40d4539"
+  nix_base_sha256 = "sha256:013bql9xs918r5yq4mp2cxhfb7bpwzlq9vrq4bb0njs6574bxgh7"
 
   # Required files/dirs that, when changed, will trigger 'rails asset:precompile' during the build
   asset_compilation_files = [
