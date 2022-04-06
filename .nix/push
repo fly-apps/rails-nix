@@ -18,3 +18,4 @@ echo "Done."
 SIZE=$(skopeo inspect --raw docker-archive://${ARCHIVE_PATH} |  jq -r '[ .layers[].size ] | add')
 ((SIZE_IN_MB=$SIZE/1024/1024))
 echo "Image size: ${SIZE_IN_MB}MB"
+echo "Deploy with: fly deploy -i ${TAG}"

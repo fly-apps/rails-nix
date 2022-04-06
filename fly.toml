@@ -25,17 +25,20 @@ app = "rails-nix"
     BUNDLER_VERSION = "2.3.6"
     NODE_VERSION = "14"
     RUBY_VERSION = "3.1.1"
+    SERVER_COMMAND = "bundle exec puma -C config/puma.rb"
+
+[requirements.runtime]
+  ruby_version = "3.1.1"
+  additional_packages = ["ffmpeg"]
 
 [deploy]
   release_command = "bundle exec rails db:migrate"
 
 [env]
+  # Rails uses these out of the box, so we specify as env vars
   PORT = "8080"
-  SERVER_COMMAND = "bundle exec puma -C config/puma.rb"
-
-[requirements.runtime]
-  ruby_version = "3.1.1"
-  additional_packages = ["ffmpeg"]
+  RAILS_ENV = "production"
+  RAILS_LOG_TO_STDOUT = "true"
 
 [[services]]
   http_checks = []
