@@ -2,27 +2,31 @@
 #!nix-shell -I .nix/default.nix -p flyctl skopeo dive yq jq git -i bash
 
 set -e
-PS4=" $ "
 
 cd "$(dirname "$0")/.."
 
-PROJECT_NAME="$(tomlq --raw-output .app fly.toml)"
-
-echo "Building ${PROJECT_NAME}..."
-
-COMMAND="nix-build .nix -A eval.config.outputs.container.image"
-
-if [ -n "$NIX_BASE_DEV" ]; then
-    COMMAND="${COMMAND} --arg nix-base '(import ../../internal/nix-base {})'"
-fi
-
-echo $COMMAND
-export ARCHIVE_PATH=$($COMMAND)
-
-export TAG=$(date +%s)
 export FLY_API_TOKEN=$(flyctl auth token)
+export PROJECT_NAME="$(tomlq --raw-output .app fly.toml)"
+export TAG="registry.fly.io/${PROJECT_NAME}:nix-$(date +%s)"
 
-echo "Image tarball: $ARCHIVE_PATH"
+if [ "$(uname -p)" == "arm" ]; then
+  echo "Detected ARM architecture. Running linux-amd64 build in Docker..."
+  docker run --privileged --platform linux/amd64 -e FLY_API_TOKEN=$FLY_API_TOKEN -v nixdir:/nix -v $PWD:/app --workdir=/app --rm nixos/nix /app/.nix/nix-build-image
+else
 
-$(dirname "$0")/nix-push $ARCHIVE_PATH
+    echo "Building ${PROJECT_NAME}..."
 
+    COMMAND="nix-build .nix -A eval.config.outputs.container.image"
+
+    if [ -n "$NIX_BASE_DEV" ]; then
+        COMMAND="${COMMAND} --arg nix-base '(import ../../internal/nix-base {})'"
+    fi
+
+    echo $COMMAND
+    export ARCHIVE_PATH=$($COMMAND)
+    echo "Image tarball: $ARCHIVE_PATH"
+
+    $(dirname "$0")/nix-push $ARCHIVE_PATH
+
+    flyctl deploy -i $TAG
+fi

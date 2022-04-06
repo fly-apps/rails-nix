@@ -2,9 +2,11 @@
 
 cd "$(dirname "$0")/.."
 
+export FLY_API_TOKEN=$(flyctl auth token)
+
 if [ "$(uname -p)" == "arm" ]; then
   echo "Detected ARM architecture. Running linux-amd64 build in Docker..."
-  docker run --privileged --platform linux/amd64 -v nixdir:/nix -v $PWD:/app --workdir=/app --rm nixos/nix /app/.nix/nix-build-image
+  docker run --privileged --platform linux/amd64 -e FLY_API_TOKEN=$FLY_API_TOKEN -v nixdir:/nix -v $PWD:/app --workdir=/app --rm nixos/nix /app/.nix/nix-build-image
 else
   echo "Running pure Nix build..."
   exec .nix/nix-build-image

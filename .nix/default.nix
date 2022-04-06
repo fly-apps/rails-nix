@@ -7,14 +7,14 @@ in
   config = { pkgs, ... }: {
     templates.rails.enable = true;
     app.source = builtins.fetchGit ../.;
-    runtimes.ruby.version = toml.requirements.ruby_version or null;
-    runtimes.ruby.withJemalloc = toml.requirements.use_jemalloc or false;
+    runtimes.ruby.version = toml.requirements.runtime.ruby_version or null;
+    runtimes.ruby.withJemalloc = toml.requirements.runtime.use_jemalloc or false;
 
     # Define additional paths required for asset compilation
-    templates.rails.assetInputs = toml.requirements.asset_compilation_files or [""];
+    templates.rails.assetInputs = toml.build.asset_compilation_files or [""];
 
     # Define additional files required for bundling gems
-    templates.rails.gemInputs = toml.requirements.gem_inputs or [""];
+    templates.rails.gemInputs = toml.build.gem_inputs or [""];
 
     # This could also be further abstracted in the nix-base modules by
     # providing an option that only takes packages as input, and adds the
@@ -26,6 +26,6 @@ in
     ];
 
     # Include the base layer which contains useful tools (ca-certs, bash, etc)
-    container.includeBaseLayer = toml.requirements.include_tools or false;
+    container.includeBaseLayer = toml.build.nix_include_tools or false;
   };
 }

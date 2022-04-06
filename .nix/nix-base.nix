@@ -9,8 +9,8 @@
 let
   # Use bin/update-nix.sh to get the latest values to place here
   toml = (builtins.fromTOML (builtins.readFile ../fly.toml));
-  rev = toml.requirements.nix_base_revision;
-  sha256 = toml.requirements.nix_base_sha256;
+  rev = toml.build.nix_base_revision;
+  sha256 = toml.build.nix_base_sha256;
   tarball = builtins.fetchTarball {
     url = "https://github.com/fly-apps/nix-base/archive/${rev}.tar.gz";
     inherit sha256;

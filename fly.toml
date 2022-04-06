@@ -2,6 +2,25 @@ app = "rails-nix"
 
 [build]
 
+  nix_base_revision = "b05cd6ea80153b15c710496eca5b8b3d680b0de1"
+  nix_base_sha256 = "sha256:1is3p554dn8w4006i22nhxs30y93i11kylj1izibjzdmdi1xgi7j"
+
+  # Required files/dirs that, when changed, will trigger 'rails asset:precompile' during the build
+  asset_compilation_files = [
+      "app/assets",
+      "app/javascript",
+      "vendor/javascript",
+      "bin/rails",
+      "config",
+      "lib/tasks",
+      "Rakefile",
+      "config.ru"
+  ]
+
+  # Include a base Docker layer with useful tools (ca-certs, bash, etc)
+  nix_include_tools = true
+
+  # Used by Dockerfile for comparing behavior with the Nix builder
   [build.args]
     BUNDLER_VERSION = "2.3.6"
     NODE_VERSION = "14"
@@ -14,13 +33,9 @@ app = "rails-nix"
   PORT = "8080"
   SERVER_COMMAND = "bundle exec puma -C config/puma.rb"
 
-[requirements]
+[requirements.runtime]
   ruby_version = "3.1.1"
-  nix_base_revision = "b05cd6ea80153b15c710496eca5b8b3d680b0de1"
-  nix_base_sha256 = "sha256:1is3p554dn8w4006i22nhxs30y93i11kylj1izibjzdmdi1xgi7j"
-  include_tools = true
-  # This needs to be moved into nix-base
-  # additional_packages = ["ffmpeg"]
+  additional_packages = ["ffmpeg"]
 
 [[services]]
   http_checks = []
