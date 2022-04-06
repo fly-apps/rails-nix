@@ -39,3 +39,5 @@ vendor/bundle
 # Nix default result paths
 result
 result-*
+
+Dockerfile.nix
