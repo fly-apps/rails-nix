@@ -1,0 +1,3 @@
+# syntax=docker/dockerfile:1.4
+FROM flyio/nix-build as base
+ARG FLY_API_TOKEN
