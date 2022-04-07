@@ -1,23 +1,10 @@
+
 [build]
-
-  nix_base_revision = "7a0548fb65780cb2ea32790dde67ca5ac40d4539"
-  nix_base_sha256 = "sha256:013bql9xs918r5yq4mp2cxhfb7bpwzlq9vrq4bb0njs6574bxgh7"
-
-  # Required files/dirs that, when changed, will trigger 'rails asset:precompile' during the build
-  asset_compilation_files = [
-      "app/assets",
-      "app/javascript",
-      "vendor/javascript",
-      "bin/rails",
-      "config",
-      "lib/tasks",
-      "Rakefile",
-      "config.ru"
-  ]
-
-  # Include a base Docker layer with useful tools (ca-certs, bash, etc)
+  asset_compilation_files = ["app/assets", "app/javascript", "vendor/javascript", "bin/rails", "config", "lib/tasks", "Rakefile", "config.ru"]
+  nix_base_revision = "f8f50093e0d21d7680182dd934c1f7a65768d758"
+  nix_base_sha256 = "sha256:0wmzyyv2s0rj55mdybfqppf7xdrj39s2m939knmvw07wygmm8dg2"
   nix_include_tools = true
 
-[requirements.runtime]
-  ruby_version = "3.1.1"
+[runtime]
   additional_packages = ["ffmpeg"]
+  ruby_version = "3.1.1"
